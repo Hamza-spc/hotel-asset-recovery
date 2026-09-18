@@ -1,0 +1,24 @@
+<div class="frame">
+  <header>
+    <a routerLink="/" class="brand">Harbor Recover</a>
+    <nav>
+      @if (auth.isAuthenticated()) {
+        <span class="who">{{ auth.username() }}</span>
+        @for (role of auth.roles(); track role) {
+          <span class="role">{{ role }}</span>
+        }
+        <button type="button" (click)="auth.logout()">Sign out</button>
+      } @else if (auth.initialized()) {
+        <button type="button" class="primary" (click)="auth.login()">Sign in with Keycloak</button>
+      }
+    </nav>
+  </header>
+
+  @if (auth.error(); as message) {
+    <p class="banner">{{ message }}</p>
+  }
+
+  <main>
+    <router-outlet />
+  </main>
+</div>

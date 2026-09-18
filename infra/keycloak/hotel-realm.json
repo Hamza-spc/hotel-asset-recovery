@@ -1,0 +1,93 @@
+{
+  "id": "hotel",
+  "realm": "hotel",
+  "displayName": "Hotel Asset Recovery",
+  "enabled": true,
+  "sslRequired": "none",
+  "registrationAllowed": false,
+  "loginWithEmailAllowed": true,
+  "duplicateEmailsAllowed": false,
+  "resetPasswordAllowed": false,
+  "editUsernameAllowed": false,
+  "bruteForceProtected": true,
+  "accessTokenLifespan": 900,
+  "ssoSessionIdleTimeout": 1800,
+  "roles": {
+    "realm": [
+      { "name": "HOUSEKEEPING", "description": "Logs found items" },
+      { "name": "FRONT_DESK", "description": "Files loss reports for guests" },
+      { "name": "DUTY_MANAGER", "description": "Reviews matches and closes the item lifecycle" }
+    ]
+  },
+  "clients": [
+    {
+      "clientId": "staff-web",
+      "name": "Angular staff app",
+      "enabled": true,
+      "publicClient": true,
+      "protocol": "openid-connect",
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": true,
+      "redirectUris": [
+        "http://localhost:4200/*",
+        "http://localhost/*",
+        "http://127.0.0.1:4200/*"
+      ],
+      "webOrigins": ["+"],
+      "attributes": {
+        "pkce.code.challenge.method": "S256",
+        "post.logout.redirect.uris": "+"
+      },
+      "defaultClientScopes": ["web-origins", "profile", "roles", "email"],
+      "protocolMappers": [
+        {
+          "name": "realm-roles",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-realm-role-mapper",
+          "consentRequired": false,
+          "config": {
+            "multivalued": "true",
+            "claim.name": "roles",
+            "jsonType.label": "String",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "userinfo.token.claim": "true"
+          }
+        }
+      ]
+    }
+  ],
+  "users": [
+    {
+      "username": "housekeeper",
+      "enabled": true,
+      "emailVerified": true,
+      "email": "housekeeper@hotel.local",
+      "firstName": "Hana",
+      "lastName": "Housekeeping",
+      "credentials": [{ "type": "password", "value": "housekeeper", "temporary": false }],
+      "realmRoles": ["HOUSEKEEPING"]
+    },
+    {
+      "username": "frontdesk",
+      "enabled": true,
+      "emailVerified": true,
+      "email": "frontdesk@hotel.local",
+      "firstName": "Farid",
+      "lastName": "Desk",
+      "credentials": [{ "type": "password", "value": "frontdesk", "temporary": false }],
+      "realmRoles": ["FRONT_DESK"]
+    },
+    {
+      "username": "manager",
+      "enabled": true,
+      "emailVerified": true,
+      "email": "manager@hotel.local",
+      "firstName": "Maya",
+      "lastName": "Manager",
+      "credentials": [{ "type": "password", "value": "manager", "temporary": false }],
+      "realmRoles": ["DUTY_MANAGER"]
+    }
+  ]
+}

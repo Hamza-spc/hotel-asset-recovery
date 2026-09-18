@@ -1,0 +1,75 @@
+.frame {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.1rem 1.5rem;
+  border-bottom: 1px solid #3a342c;
+  background: rgba(16, 15, 13, 0.86);
+  backdrop-filter: blur(12px);
+  position: sticky;
+  top: 0;
+}
+
+.brand {
+  font-family: 'Source Serif 4', serif;
+  color: #f3eadc;
+  text-decoration: none;
+  font-size: 1.2rem;
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.who {
+  color: #c8c2b6;
+  font-size: 0.9rem;
+}
+
+.role {
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  border: 1px solid #c4a574;
+  color: #c4a574;
+  border-radius: 999px;
+  padding: 0.15rem 0.55rem;
+}
+
+button {
+  appearance: none;
+  border: 1px solid #5b5348;
+  background: transparent;
+  color: #f3eadc;
+  border-radius: 999px;
+  padding: 0.4rem 0.85rem;
+  cursor: pointer;
+}
+
+button.primary {
+  background: #c4a574;
+  border-color: #c4a574;
+  color: #1a1611;
+}
+
+.banner {
+  margin: 0;
+  padding: 0.8rem 1.5rem;
+  background: #3a2a16;
+  color: #f0d2a0;
+}
+
+main {
+  width: min(960px, calc(100% - 2rem));
+  margin: 2.5rem auto 4rem;
+  flex: 1;
+}

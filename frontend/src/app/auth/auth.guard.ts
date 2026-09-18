@@ -1,0 +1,15 @@
+import { inject } from '@angular/core';
+import { CanActivateFn } from '@angular/router';
+import { Auth } from './auth';
+
+export const authGuard: CanActivateFn = async () => {
+  const auth = inject(Auth);
+  if (!auth.initialized()) {
+    await auth.initialize();
+  }
+  if (auth.isAuthenticated() || auth.error()) {
+    return true;
+  }
+  await auth.login();
+  return false;
+};

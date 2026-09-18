@@ -1,0 +1,35 @@
+<section class="hero">
+  <p class="eyebrow">Hotel operations</p>
+  <h1>Asset Recovery desk</h1>
+  <p class="lede">
+    Signed in as <strong>{{ auth.username() }}</strong>. Roles from Keycloak decide what you can do
+    next.
+  </p>
+</section>
+
+@if (profile.hasValue()) {
+  <p class="api-ok">API session confirmed for {{ profile.value().username }}.</p>
+} @else if (profile.error()) {
+  <p class="api-warn">API is not reachable yet. Start the Spring Boot module after Compose.</p>
+}
+
+<div class="cards">
+  @if (auth.hasRole('HOUSEKEEPING')) {
+    <article>
+      <h2>Housekeeping</h2>
+      <p>Log a found item with a photo and a floor-map pin. Shipping in Phase 2.</p>
+    </article>
+  }
+  @if (auth.hasRole('FRONT_DESK')) {
+    <article>
+      <h2>Front desk</h2>
+      <p>File a loss report for a guest: name, room, and where they think they lost it.</p>
+    </article>
+  }
+  @if (auth.hasRole('DUTY_MANAGER')) {
+    <article>
+      <h2>Duty manager</h2>
+      <p>Review match suggestions, hand items back, or dispose after the retention window.</p>
+    </article>
+  }
+</div>
