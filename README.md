@@ -30,7 +30,7 @@ cd backend && ./mvnw spring-boot:run
 cd frontend && npm start
 ```
 
-Open [http://localhost:4200](http://localhost:4200). Keycloak is on port 8081, Grafana on 3000 (`admin` / `admin`), MinIO console on 9001.
+Open [http://localhost:4200](http://localhost:4200). Keycloak is on port 8081, Grafana on 3000 (`admin` / `admin`), MinIO console on 9001. Compose Postgres is on **5433** so it does not collide with a local Homebrew Postgres on 5432.
 
 ### Demo users (local only)
 

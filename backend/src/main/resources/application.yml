@@ -2,7 +2,7 @@ spring:
   application:
     name: lostfound
   datasource:
-    url: jdbc:postgresql://localhost:5432/lostfound
+    url: jdbc:postgresql://localhost:5433/lostfound
     username: lostfound
     password: lostfound
   jpa:
