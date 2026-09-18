@@ -8,7 +8,7 @@ This is a **modular monolith**: one Spring Boot application with enforced module
 
 ## Status
 
-Phase 1 — platform skeleton. Login works. Inventory, maps, Kafka consumers, and matching come next.
+Phase 2 — staff can log found items (with photos), file guest loss reports, and move items through the domain lifecycle. Maps and matching come next.
 
 ## Stack
 

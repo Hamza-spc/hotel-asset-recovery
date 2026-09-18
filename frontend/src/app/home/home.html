@@ -15,21 +15,25 @@
 
 <div class="cards">
   @if (auth.hasRole('HOUSEKEEPING')) {
-    <article>
-      <h2>Housekeeping</h2>
-      <p>Log a found item with a photo and a floor-map pin. Shipping in Phase 2.</p>
-    </article>
+    <a routerLink="/log-item">
+      <article>
+        <h2>Housekeeping</h2>
+        <p>Log a found item with a photo and the hotel zone where you picked it up.</p>
+      </article>
+    </a>
   }
   @if (auth.hasRole('FRONT_DESK')) {
-    <article>
-      <h2>Front desk</h2>
-      <p>File a loss report for a guest: name, room, and where they think they lost it.</p>
-    </article>
+    <a routerLink="/file-report">
+      <article>
+        <h2>Front desk</h2>
+        <p>File a loss report for a guest: name, room, and where they think they lost it.</p>
+      </article>
+    </a>
   }
-  @if (auth.hasRole('DUTY_MANAGER')) {
+  <a routerLink="/board">
     <article>
-      <h2>Duty manager</h2>
-      <p>Review match suggestions, hand items back, or dispose after the retention window.</p>
+      <h2>Operations board</h2>
+      <p>See every found item and guest report. Duty managers move items through the lifecycle.</p>
     </article>
-  }
+  </a>
 </div>

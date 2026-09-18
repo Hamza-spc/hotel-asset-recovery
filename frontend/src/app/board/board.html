@@ -1,0 +1,39 @@
+<a routerLink="/" class="back">Back to desk</a>
+<h1>Operations board</h1>
+
+<div class="columns">
+  <section>
+    <h2>Found items</h2>
+    @if (items.hasValue()) {
+      <ul>
+        @for (item of items.value(); track item.id) {
+          <li>
+            <a [routerLink]="['/items', item.id]">
+              <strong>{{ item.trackingCode }}</strong>
+              <span>{{ item.description }}</span>
+              <em>{{ item.status }} · {{ item.zoneName }}</em>
+            </a>
+          </li>
+        } @empty {
+          <li class="empty">No items logged yet.</li>
+        }
+      </ul>
+    }
+  </section>
+  <section>
+    <h2>Loss reports</h2>
+    @if (reports.hasValue()) {
+      <ul>
+        @for (report of reports.value(); track report.id) {
+          <li>
+            <strong>{{ report.guestName }}</strong>
+            <span>{{ report.description }}</span>
+            <em>{{ report.status }} · Room {{ report.roomNumber }} · {{ report.filedAt | date: 'short' }}</em>
+          </li>
+        } @empty {
+          <li class="empty">No guest reports yet.</li>
+        }
+      </ul>
+    }
+  </section>
+</div>

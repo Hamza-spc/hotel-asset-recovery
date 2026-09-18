@@ -1,0 +1,21 @@
+<a routerLink="/" class="back">Back to desk</a>
+<h1>File a guest loss report</h1>
+<p class="lede">Front desk takes the claim on behalf of the guest. Matching comes later.</p>
+
+@if (error(); as message) {
+  <p class="error">{{ message }}</p>
+}
+
+<form (ngSubmit)="submit()">
+  <label>Guest name <input name="guestName" [(ngModel)]="guestName" required /></label>
+  <label>Room <input name="roomNumber" [(ngModel)]="roomNumber" required /></label>
+  <label>Contact <input name="contact" [(ngModel)]="contact" required /></label>
+  <label>
+    What they lost
+    <textarea name="description" [(ngModel)]="description" required rows="3"></textarea>
+  </label>
+  <label>Last seen near <input name="zoneName" [(ngModel)]="zoneName" required /></label>
+  <button type="submit" class="primary" [disabled]="saving()">
+    {{ saving() ? 'Saving…' : 'File report' }}
+  </button>
+</form>

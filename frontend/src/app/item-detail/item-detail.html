@@ -1,0 +1,44 @@
+<a routerLink="/board" class="back">Back to board</a>
+
+@if (item(); as current) {
+  <article>
+    <p class="eyebrow">{{ current.trackingCode }}</p>
+    <h1>{{ current.description }}</h1>
+    <p class="meta">
+      {{ current.category }} · {{ current.status }} · {{ current.zoneName }} · logged
+      {{ current.foundAt | date: 'short' }} by {{ current.foundBy }}
+    </p>
+    @if (current.storageLocation) {
+      <p class="meta">Stored at {{ current.storageLocation }}</p>
+    }
+    @if (photoUrl(); as url) {
+      <img [src]="url" alt="Found item" />
+    }
+  </article>
+}
+
+@if (error(); as message) {
+  <p class="error">{{ message }}</p>
+}
+
+<div class="actions">
+  @if (canStore()) {
+    <label>
+      Storage location
+      <input [(ngModel)]="storageLocation" />
+    </label>
+    <button type="button" (click)="store()">Move to storage</button>
+  }
+  @if (canClaim()) {
+    <button type="button" (click)="openClaim()">Open claim</button>
+  }
+  @if (canReclaim()) {
+    <button type="button" (click)="reclaim()">Hand back to guest</button>
+  }
+  @if (canUnclaim()) {
+    <button type="button" (click)="unclaimed()">Mark unclaimed</button>
+  }
+  @if (canDispose()) {
+    <button type="button" class="danger" (click)="dispose()">Dispose</button>
+  }
+</div>

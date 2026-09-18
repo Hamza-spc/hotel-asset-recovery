@@ -1,10 +1,12 @@
 import { Component, inject, resource } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import { Auth } from '../auth/auth';
 import { StaffApi } from '../core/staff-api';
 
 @Component({
   selector: 'app-home',
+  imports: [RouterLink],
   templateUrl: './home.html',
   styleUrl: './home.scss',
 })

@@ -1,0 +1,61 @@
+.back {
+  color: #c4a574;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+h1 {
+  font-family: 'Source Serif 4', serif;
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  margin: 0.6rem 0 0.5rem;
+}
+
+.lede,
+.error {
+  color: #c8c2b6;
+  max-width: 36rem;
+}
+
+.error {
+  color: #e0b56a;
+}
+
+form {
+  display: grid;
+  gap: 1rem;
+  max-width: 28rem;
+  margin-top: 1.5rem;
+}
+
+label {
+  display: grid;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+}
+
+input,
+select,
+textarea {
+  background: #1b1916;
+  border: 1px solid #3a342c;
+  color: #f3eadc;
+  border-radius: 10px;
+  padding: 0.65rem 0.75rem;
+  font: inherit;
+}
+
+button.primary,
+button {
+  appearance: none;
+  border: 1px solid #c4a574;
+  background: #c4a574;
+  color: #1a1611;
+  border-radius: 999px;
+  padding: 0.55rem 1rem;
+  width: fit-content;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.6;
+}

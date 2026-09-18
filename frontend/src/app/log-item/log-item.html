@@ -1,0 +1,33 @@
+<a routerLink="/" class="back">Back to desk</a>
+<h1>Log a found item</h1>
+<p class="lede">Housekeeping snapshot: what it is, where you found it, and a photo if you have one.</p>
+
+@if (error(); as message) {
+  <p class="error">{{ message }}</p>
+}
+
+<form (ngSubmit)="submit()">
+  <label>
+    Description
+    <textarea name="description" [(ngModel)]="description" required rows="3"></textarea>
+  </label>
+  <label>
+    Category
+    <select name="category" [(ngModel)]="category">
+      @for (option of categories; track option) {
+        <option [value]="option">{{ option }}</option>
+      }
+    </select>
+  </label>
+  <label>
+    Hotel zone
+    <input name="zoneName" [(ngModel)]="zoneName" required />
+  </label>
+  <label>
+    Photo
+    <input type="file" accept="image/*" (change)="onFile($event)" />
+  </label>
+  <button type="submit" class="primary" [disabled]="saving()">
+    {{ saving() ? 'Saving…' : 'Log item' }}
+  </button>
+</form>

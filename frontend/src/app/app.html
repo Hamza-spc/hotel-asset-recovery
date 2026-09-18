@@ -3,6 +3,13 @@
     <a routerLink="/" class="brand">Harbor Recover</a>
     <nav>
       @if (auth.isAuthenticated()) {
+        <a routerLink="/board">Board</a>
+        @if (auth.hasRole('HOUSEKEEPING')) {
+          <a routerLink="/log-item">Log item</a>
+        }
+        @if (auth.hasRole('FRONT_DESK')) {
+          <a routerLink="/file-report">Loss report</a>
+        }
         <span class="who">{{ auth.username() }}</span>
         @for (role of auth.roles(); track role) {
           <span class="role">{{ role }}</span>

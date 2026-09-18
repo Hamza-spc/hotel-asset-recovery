@@ -1,0 +1,33 @@
+@use '../shared/forms' as *;
+
+.eyebrow {
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #c4a574;
+  margin-bottom: 0.3rem;
+}
+
+.meta {
+  color: #c8c2b6;
+}
+
+img {
+  margin-top: 1rem;
+  max-width: min(420px, 100%);
+  border-radius: 16px;
+  border: 1px solid #3a342c;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  align-items: end;
+  margin-top: 1.5rem;
+}
+
+button.danger {
+  background: transparent;
+  color: #e0b56a;
+  border-color: #e0b56a;
+}

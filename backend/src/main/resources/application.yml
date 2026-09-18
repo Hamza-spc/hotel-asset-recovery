@@ -29,6 +29,10 @@ spring:
   threads:
     virtual:
       enabled: true
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 12MB
 
 server:
   port: 8080
@@ -56,3 +60,10 @@ app:
     allowed-origins: http://localhost:4200,http://localhost
   security:
     issuer-uri: http://localhost:8081/realms/hotel
+  storage:
+    endpoint: http://localhost:9000
+    access-key: lostfound
+    secret-key: lostfoundsecret
+    bucket: lostfound-photos
+    region: us-east-1
+
