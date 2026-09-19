@@ -1,0 +1,38 @@
+@startuml
+title <size:24>Audit</size>
+
+set separator none
+top to bottom direction
+
+<style>
+  root {
+    BackgroundColor: #ffffff
+    FontColor: #444444
+  }
+</style>
+
+!include <C4/C4>
+!include <C4/C4_Context>
+!include <C4/C4_Component>
+
+System_Boundary("LostFoundApplication_boundary", "LostFoundApplication", $tags="") {
+  Container_Boundary("LostFoundApplication.LostFoundApplication_boundary", "LostFoundApplication", $tags="") {
+    Component(LostFoundApplication.LostFoundApplication.Claims, "Claims", $techn="Module", $descr="", $tags="", $link="")
+    Component(LostFoundApplication.LostFoundApplication.Inventory, "Inventory", $techn="Module", $descr="", $tags="", $link="")
+    Component(LostFoundApplication.LostFoundApplication.Matching, "Matching", $techn="Module", $descr="", $tags="", $link="")
+    Component(LostFoundApplication.LostFoundApplication.Audit, "Audit", $techn="Module", $descr="", $tags="", $link="")
+  }
+
+}
+
+Rel(LostFoundApplication.LostFoundApplication.Audit, LostFoundApplication.LostFoundApplication.Inventory, "listens to", $techn="", $tags="", $link="")
+Rel(LostFoundApplication.LostFoundApplication.Audit, LostFoundApplication.LostFoundApplication.Claims, "listens to", $techn="", $tags="", $link="")
+Rel(LostFoundApplication.LostFoundApplication.Audit, LostFoundApplication.LostFoundApplication.Matching, "listens to", $techn="", $tags="", $link="")
+Rel(LostFoundApplication.LostFoundApplication.Matching, LostFoundApplication.LostFoundApplication.Inventory, "listens to", $techn="", $tags="", $link="")
+Rel(LostFoundApplication.LostFoundApplication.Matching, LostFoundApplication.LostFoundApplication.Claims, "listens to", $techn="", $tags="", $link="")
+Rel(LostFoundApplication.LostFoundApplication.Matching, LostFoundApplication.LostFoundApplication.Inventory, "uses", $techn="", $tags="", $link="")
+Rel(LostFoundApplication.LostFoundApplication.Matching, LostFoundApplication.LostFoundApplication.Claims, "uses", $techn="", $tags="", $link="")
+
+SHOW_LEGEND(true)
+hide stereotypes
+@enduml

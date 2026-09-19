@@ -1,0 +1,31 @@
+== LostFoundApplication
+plantuml::components.puml[,,format=svg]
+
+== Claims
+plantuml::module-claims.puml[,,format=svg]
+include::module-claims.adoc[]
+
+== Identity
+plantuml::module-identity.puml[,,format=svg]
+include::module-identity.adoc[]
+
+== Inventory
+plantuml::module-inventory.puml[,,format=svg]
+include::module-inventory.adoc[]
+
+== Location
+plantuml::module-location.puml[,,format=svg]
+include::module-location.adoc[]
+
+== Matching
+plantuml::module-matching.puml[,,format=svg]
+include::module-matching.adoc[]
+
+== Audit
+plantuml::module-audit.puml[,,format=svg]
+include::module-audit.adoc[]
+
+== Notification
+plantuml::module-notification.puml[,,format=svg]
+include::module-notification.adoc[]
+

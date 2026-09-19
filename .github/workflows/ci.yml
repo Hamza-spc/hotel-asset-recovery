@@ -5,6 +5,10 @@ on:
     branches: [main]
   pull_request:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   backend:
     runs-on: ubuntu-latest
@@ -15,9 +19,16 @@ jobs:
           distribution: temurin
           java-version: "21"
           cache: maven
-      - name: Verify module boundaries
+      - name: Test modules and generate Modulith docs
         working-directory: backend
         run: ./mvnw -B -q test
+      - name: Upload Modulith documentation
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: modulith-docs
+          path: backend/target/spring-modulith-docs
+          if-no-files-found: warn
 
   frontend:
     runs-on: ubuntu-latest
@@ -31,3 +42,18 @@ jobs:
       - name: Build staff app
         working-directory: frontend
         run: npm ci && npm run build
+
+  compose:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate Compose file
+        run: docker compose -f infra/docker-compose.yml config --quiet
+
+  k6:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: grafana/setup-k6-action@v1
+      - name: Validate k6 script
+        run: k6 inspect k6/staff-board.js
