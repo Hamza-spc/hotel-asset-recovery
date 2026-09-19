@@ -91,6 +91,15 @@ services:
     volumes:
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
 
+  tempo:
+    image: grafana/tempo:2.7.2
+    command: ["-config.file=/etc/tempo.yaml"]
+    ports:
+      - "4318:4318"
+      - "3200:3200"
+    volumes:
+      - ./tempo/tempo.yaml:/etc/tempo.yaml:ro
+
   grafana:
     image: grafana/grafana:11.6.3
     ports:
@@ -104,6 +113,7 @@ services:
       - ./grafana/provisioning:/etc/grafana/provisioning:ro
     depends_on:
       - prometheus
+      - tempo
 
   nginx:
     image: nginx:1.27-alpine

@@ -21,6 +21,14 @@ spring:
       port: 6379
   kafka:
     bootstrap-servers: localhost:9094
+  modulith:
+    events:
+      externalization:
+        enabled: true
+      republish-outstanding-events-on-restart: true
+      jdbc:
+        schema-initialization:
+          enabled: false
   security:
     oauth2:
       resourceserver:
@@ -46,14 +54,21 @@ management:
     health:
       probes:
         enabled: true
+  tracing:
+    sampling:
+      probability: 1.0
   prometheus:
     metrics:
       export:
         enabled: true
   otlp:
-    tracing:
+    metrics:
       export:
         enabled: false
+    tracing:
+      endpoint: http://localhost:4318/v1/traces
+      export:
+        enabled: true
 
 app:
   cors:

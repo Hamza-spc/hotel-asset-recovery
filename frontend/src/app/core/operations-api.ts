@@ -57,6 +57,23 @@ export interface ZoneResolved {
   floorCode: string;
 }
 
+export interface AuditEntry {
+  id: string;
+  eventType: string;
+  aggregateType: string;
+  aggregateId: string;
+  summary: string;
+  occurredAt: string;
+}
+
+export interface OperationsNotice {
+  type: string;
+  aggregateType: string;
+  aggregateId: string;
+  summary: string;
+  occurredAt: string;
+}
+
 export interface HotelZoneCollection {
   type: 'FeatureCollection';
   features: Array<{
@@ -126,5 +143,9 @@ export class OperationsApi {
 
   resolveZone(x: number, y: number) {
     return this.http.get<ZoneResolved>(`${this.base}/api/map/resolve`, { params: { x, y } });
+  }
+
+  recentAudit() {
+    return this.http.get<AuditEntry[]>(`${this.base}/api/audit`);
   }
 }

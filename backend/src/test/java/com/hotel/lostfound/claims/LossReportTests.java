@@ -27,4 +27,21 @@ class LossReportTests {
         assertEquals(55, report.mapPoint().orElseThrow().y());
         assertTrue(report.pullEvents().stream().anyMatch(LossReportFiled.class::isInstance));
     }
+
+    @Test
+    void closingAnOpenReportPublishesClosedEvent() {
+        LossReport report = LossReport.file(
+                "Ada Guest",
+                "412",
+                "ada@example.com",
+                "Black leather wallet",
+                "Lobby",
+                new MapLocation(20, 55),
+                null,
+                "frontdesk",
+                Instant.parse("2026-09-19T00:00:00Z"));
+        report.pullEvents();
+        report.close();
+        assertTrue(report.pullEvents().stream().anyMatch(LossReportClosed.class::isInstance));
+    }
 }

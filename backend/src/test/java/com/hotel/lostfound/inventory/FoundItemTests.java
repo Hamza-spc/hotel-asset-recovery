@@ -27,6 +27,18 @@ class FoundItemTests {
     }
 
     @Test
+    void claimAndUnclaimedPublishLifecycleEvents() {
+        FoundItem item = sample();
+        item.moveToStorage("Shelf B4");
+        item.openClaim();
+        assertTrue(item.pullEvents().stream().anyMatch(ItemClaimOpened.class::isInstance));
+        FoundItem stored = sample();
+        stored.moveToStorage("Cage 2");
+        stored.markUnclaimed();
+        assertTrue(stored.pullEvents().stream().anyMatch(ItemUnclaimed.class::isInstance));
+    }
+
+    @Test
     void disposeRequiresUnclaimed() {
         FoundItem item = sample();
         item.moveToStorage("Cage 2");

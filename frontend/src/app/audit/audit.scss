@@ -1,0 +1,28 @@
+@use '../shared/forms' as *;
+
+ol {
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0 0;
+  display: grid;
+  gap: 0.7rem;
+}
+
+li {
+  background: #1b1916;
+  border: 1px solid #3a342c;
+  border-radius: 14px;
+  padding: 0.9rem 1rem;
+  display: grid;
+  gap: 0.2rem;
+}
+
+em {
+  font-style: normal;
+  color: #c8c2b6;
+  font-size: 0.85rem;
+}
+
+.empty {
+  color: #c8c2b6;
+}

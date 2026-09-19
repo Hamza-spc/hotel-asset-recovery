@@ -1,0 +1,19 @@
+<a routerLink="/" class="back">Back to desk</a>
+<h1>Audit log</h1>
+<p class="lede">
+  Append-only trail from domain events. The Modulith outbox also publishes the same events to Kafka.
+</p>
+
+@if (entries.hasValue()) {
+  <ol>
+    @for (entry of entries.value(); track entry.id) {
+      <li>
+        <strong>{{ entry.eventType }}</strong>
+        <span>{{ entry.summary }}</span>
+        <em>{{ entry.occurredAt | date: 'short' }} · {{ entry.aggregateType }}</em>
+      </li>
+    } @empty {
+      <li class="empty">No events recorded yet. Log an item or file a report.</li>
+    }
+  </ol>
+}

@@ -1,5 +1,11 @@
 <a routerLink="/" class="back">Back to desk</a>
 <h1>Operations board</h1>
+<p class="live">
+  <span [class.on]="realtime.connected()">{{ realtime.connected() ? 'Live' : 'Connecting…' }}</span>
+  @if (realtime.event(); as notice) {
+    Latest: {{ notice.summary }}
+  }
+</p>
 
 <div class="columns">
   <section>

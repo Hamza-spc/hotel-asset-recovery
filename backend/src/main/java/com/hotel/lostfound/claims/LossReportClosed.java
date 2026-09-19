@@ -5,4 +5,4 @@ import java.util.UUID;
 import org.springframework.modulith.events.Externalized;
 
 @Externalized("lostfound.claims::#{#this.reportId()}")
-public record LossReportFiled(UUID reportId, String guestName, Instant occurredAt) {}
+public record LossReportClosed(UUID reportId, Instant occurredAt) {}

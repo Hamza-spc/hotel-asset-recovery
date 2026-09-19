@@ -35,6 +35,8 @@ class SecurityConfig {
                         .permitAll()
                         .requestMatchers(HttpMethod.OPTIONS, "/**")
                         .permitAll()
+                        .requestMatchers("/ws", "/ws/**")
+                        .permitAll()
                         .requestMatchers("/api/**")
                         .authenticated()
                         .anyRequest()

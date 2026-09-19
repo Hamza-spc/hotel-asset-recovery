@@ -117,6 +117,7 @@ public class FoundItem {
 
     public void openClaim() {
         transitionTo(ItemStatus.CLAIM_PENDING);
+        events.add(new ItemClaimOpened(id, Instant.now()));
     }
 
     public void reclaim() {
@@ -126,6 +127,7 @@ public class FoundItem {
 
     public void markUnclaimed() {
         transitionTo(ItemStatus.UNCLAIMED);
+        events.add(new ItemUnclaimed(id, Instant.now()));
     }
 
     public void dispose() {

@@ -1,7 +1,8 @@
-import { Component, computed, inject, resource } from '@angular/core';
+import { Component, computed, effect, inject, resource } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import { OperationsApi } from '../core/operations-api';
+import { OperationsRealtime } from '../core/operations-realtime';
 import { FloorMap, FloorPin } from './floor-map';
 
 @Component({
@@ -12,6 +13,7 @@ import { FloorMap, FloorPin } from './floor-map';
 })
 export class MapPage {
   private readonly api = inject(OperationsApi);
+  private readonly realtime = inject(OperationsRealtime);
 
   protected readonly items = resource({
     loader: () => firstValueFrom(this.api.listItems()),
@@ -19,6 +21,16 @@ export class MapPage {
   protected readonly reports = resource({
     loader: () => firstValueFrom(this.api.listReports()),
   });
+
+  constructor() {
+    this.realtime.connect();
+    effect(() => {
+      if (this.realtime.revision() > 0) {
+        this.items.reload();
+        this.reports.reload();
+      }
+    });
+  }
 
   protected readonly pins = computed<FloorPin[]>(() => {
     const found = this.items.hasValue() ? this.items.value() : [];

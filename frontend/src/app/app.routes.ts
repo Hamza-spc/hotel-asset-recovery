@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './auth/auth.guard';
 import { roleGuard } from './auth/role.guard';
+import { Audit } from './audit/audit';
 import { Board } from './board/board';
 import { FileReport } from './file-report/file-report';
 import { MapPage } from './floor-map/map-page';
@@ -17,6 +18,7 @@ export const routes: Routes = [
     canActivate: [authGuard, roleGuard(['FRONT_DESK'])],
   },
   { path: 'board', component: Board, canActivate: [authGuard] },
+  { path: 'audit', component: Audit, canActivate: [authGuard] },
   { path: 'map', component: MapPage, canActivate: [authGuard] },
   { path: 'items/:id', component: ItemDetail, canActivate: [authGuard] },
   { path: '**', redirectTo: '' },

@@ -119,6 +119,7 @@ public class LossReport {
             throw new ClaimException("Loss report is already " + status);
         }
         this.status = LossReportStatus.CLOSED;
+        events.add(new LossReportClosed(id, Instant.now()));
     }
 
     public void resolve() {

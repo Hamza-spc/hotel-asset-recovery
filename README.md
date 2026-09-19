@@ -8,15 +8,16 @@ This is a **modular monolith**: one Spring Boot application with enforced module
 
 ## Status
 
-Phase 3 — staff tap a PostGIS-backed 2D floor plan to pin finds and loss reports. Matching comes next.
+Phase 4 — domain events go through the Modulith outbox to Kafka, an append-only audit log, and a live STOMP board. Matching comes next.
 
 ## Stack
 
 - Java 21, Spring Boot 4.1, Spring Modulith 2.1
 - Angular 21 staff app
 - Keycloak (OAuth2/OIDC) with roles `HOUSEKEEPING`, `FRONT_DESK`, `DUTY_MANAGER`
-- Docker Compose: PostgreSQL 16 + PostGIS, Kafka, Redis, MinIO, Prometheus, Grafana, Nginx
-- Angular 21 staff app with Leaflet `CRS.Simple` ground-floor map
+- Docker Compose: PostgreSQL 16 + PostGIS, Kafka, Redis, MinIO, Prometheus, Grafana, Tempo, Nginx
+- Angular 21 staff app with Leaflet `CRS.Simple` ground-floor map and STOMP live updates
+- OpenTelemetry traces exported to Tempo (Grafana Explore → Tempo)
 
 ## Local run
 
@@ -31,7 +32,7 @@ cd backend && ./mvnw spring-boot:run
 cd frontend && npm start
 ```
 
-Open [http://localhost:4200](http://localhost:4200). Keycloak is on port 8081, Grafana on 3000 (`admin` / `admin`), MinIO console on 9001. Compose Postgres is on **5433** so it does not collide with a local Homebrew Postgres on 5432.
+Open [http://localhost:4200](http://localhost:4200). Keycloak is on port 8081, Grafana on 3000 (`admin` / `admin`), MinIO console on 9001, Tempo OTLP on 4318. Compose Postgres is on **5433** so it does not collide with a local Homebrew Postgres on 5432. The operations board stays live over STOMP (`/ws`). Kafka topics are `lostfound.inventory` and `lostfound.claims`.
 
 ### Demo users (local only)
 

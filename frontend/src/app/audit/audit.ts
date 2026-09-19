@@ -6,28 +6,24 @@ import { OperationsApi } from '../core/operations-api';
 import { OperationsRealtime } from '../core/operations-realtime';
 
 @Component({
-  selector: 'app-board',
+  selector: 'app-audit',
   imports: [RouterLink, DatePipe],
-  templateUrl: './board.html',
-  styleUrl: './board.scss',
+  templateUrl: './audit.html',
+  styleUrl: './audit.scss',
 })
-export class Board {
+export class Audit {
   private readonly api = inject(OperationsApi);
-  protected readonly realtime = inject(OperationsRealtime);
+  private readonly realtime = inject(OperationsRealtime);
 
-  protected readonly items = resource({
-    loader: () => firstValueFrom(this.api.listItems()),
-  });
-  protected readonly reports = resource({
-    loader: () => firstValueFrom(this.api.listReports()),
+  protected readonly entries = resource({
+    loader: () => firstValueFrom(this.api.recentAudit()),
   });
 
   constructor() {
     this.realtime.connect();
     effect(() => {
       if (this.realtime.revision() > 0) {
-        this.items.reload();
-        this.reports.reload();
+        this.entries.reload();
       }
     });
   }
