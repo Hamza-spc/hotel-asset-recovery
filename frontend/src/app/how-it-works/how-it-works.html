@@ -1,0 +1,52 @@
+<p class="eyebrow">Talk track</p>
+<h1>How a match happens</h1>
+<p class="lede">
+  One Spring Boot process, seven Modulith modules. Kafka is the outbox for downstream consumers —
+  matching, audit, and the live board listen in-process after the write commits.
+</p>
+
+<ol>
+  <li>
+    <h2>Someone writes a fact</h2>
+    <p>
+      Housekeeping logs a found item, or a guest / front desk files a loss report. That is a domain
+      command on an aggregate. Illegal status jumps throw before anything is saved.
+    </p>
+  </li>
+  <li>
+    <h2>The transaction owns the outbox</h2>
+    <p>
+      The same database transaction saves the aggregate and a Modulith event publication. If the
+      commit fails, there is no half-published <code>ItemLogged</code> or
+      <code>LossReportFiled</code>. After commit, listeners run and the event is also externalized
+      to Kafka (<code>lostfound.inventory</code>, <code>lostfound.claims</code>,
+      <code>lostfound.matching</code>).
+    </p>
+  </li>
+  <li>
+    <h2>Matching embeds, then scores</h2>
+    <p>
+      The matching module calls inventory and claims through public ports — it does not reach into
+      their tables, so Modulith stays acyclic. Ollama <code>nomic-embed-text</code> writes a 768-d
+      vector to pgvector. Combined score is
+      <code>0.7 × text + 0.3 × spatial</code>, where text is
+      <code>1 − (embedding &lt;=&gt; embedding)</code> and spatial is
+      <code>1 − min(hypot / 40, 1)</code>. Missing coordinates contribute <code>0.5</code>. Pairs
+      below <code>0.52</code> are dropped.
+    </p>
+  </li>
+  <li>
+    <h2>Staff decide. Guests do not.</h2>
+    <p>
+      Duty managers see pending suggestions on <code>/matches</code>. Accept opens a claim and
+      resolves the report; sibling suggestions are rejected. The guest receipt only shows status.
+      Opening the inbox does not talk to Ollama — that would hide a timeout in a GET. Rebuild
+      embeddings is an explicit manager action.
+    </p>
+  </li>
+</ol>
+
+<p class="links">
+  <a routerLink="/guest">Guest desk</a>
+  <a routerLink="/">Staff desk</a>
+</p>

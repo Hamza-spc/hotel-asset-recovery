@@ -52,6 +52,16 @@ export interface LossReport {
   filedAt: string;
 }
 
+export interface GuestReport {
+  id: string;
+  guestName: string;
+  roomNumber: string;
+  description: string;
+  zoneName: string;
+  status: LossReportStatus;
+  filedAt: string;
+}
+
 export interface ZoneResolved {
   name: string;
   floorCode: string;
@@ -174,5 +184,25 @@ export class OperationsApi {
 
   rejectMatch(id: string) {
     return this.http.post<MatchSuggestion>(`${this.base}/api/matches/${id}/reject`, null);
+  }
+
+  reindexMatches() {
+    return this.http.post<MatchSuggestion[]>(`${this.base}/api/matches/reindex`, null);
+  }
+
+  fileGuestReport(payload: {
+    guestName: string;
+    roomNumber: string;
+    contact: string;
+    description: string;
+    zoneName: string;
+    mapX: number;
+    mapY: number;
+  }) {
+    return this.http.post<GuestReport>(`${this.base}/api/public/loss-reports`, payload);
+  }
+
+  guestReport(id: string) {
+    return this.http.get<GuestReport>(`${this.base}/api/public/loss-reports/${id}`);
   }
 }

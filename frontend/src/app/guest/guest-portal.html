@@ -1,0 +1,44 @@
+<p class="eyebrow">Guest desk</p>
+<h1>I lost something</h1>
+<p class="lede">
+  File a report yourself. Housekeeping and the duty manager still decide the match — this only tells
+  the hotel what is missing.
+</p>
+
+@if (error(); as message) {
+  <p class="error">{{ message }}</p>
+}
+
+<form (ngSubmit)="submit()">
+  <label>Your name <input name="guestName" [(ngModel)]="guestName" required maxlength="80" /></label>
+  <label>Room <input name="roomNumber" [(ngModel)]="roomNumber" required maxlength="16" /></label>
+  <label>Phone or email <input name="contact" [(ngModel)]="contact" required maxlength="120" /></label>
+  <label>
+    What you lost
+    <textarea name="description" [(ngModel)]="description" required maxlength="500" rows="3"></textarea>
+  </label>
+  <div class="map-field">
+    <span>Last place you remember it</span>
+    <app-floor-map [selectable]="true" [pins]="pins()" (pinPicked)="onPin($event)" />
+    <p class="hint">
+      @if (zoneName) {
+        Pin in {{ zoneName }} at {{ mapX }}, {{ mapY }}
+      } @else {
+        Tap the floor plan. The hotel uses that pin for distance scoring.
+      }
+    </p>
+  </div>
+  <button type="submit" class="primary" [disabled]="saving()">
+    {{ saving() ? 'Sending…' : 'File report' }}
+  </button>
+</form>
+
+<section class="lookup">
+  <h2>Already filed?</h2>
+  <form (ngSubmit)="lookup()">
+    <label>Receipt id <input name="lookupId" [(ngModel)]="lookupId" required /></label>
+    <button type="submit">Check status</button>
+  </form>
+</section>
+
+<p class="staff-hint">Hotel staff? <a routerLink="/">Sign in to the operations desk</a>.</p>

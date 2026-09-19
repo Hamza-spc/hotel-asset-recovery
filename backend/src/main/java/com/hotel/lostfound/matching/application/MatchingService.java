@@ -77,8 +77,13 @@ public class MatchingService {
         proposeForReport(event.reportId());
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<MatchSuggestion> pending() {
+        return matches.findPending();
+    }
+
+    @Transactional
+    public List<MatchSuggestion> reindex() {
         indexMissing();
         return matches.findPending();
     }

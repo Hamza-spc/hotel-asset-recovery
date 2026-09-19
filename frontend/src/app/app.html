@@ -1,8 +1,12 @@
 <div class="frame">
   <header>
-    <a routerLink="/" class="brand">Harbor Recover</a>
+    <a [routerLink]="publicDesk() ? '/guest' : '/'" class="brand">Harbor Recover</a>
     <nav>
-      @if (auth.isAuthenticated()) {
+      @if (publicDesk()) {
+        <a routerLink="/guest">Guest desk</a>
+        <a routerLink="/how-it-works">How it works</a>
+        <a routerLink="/">Staff desk</a>
+      } @else if (auth.isAuthenticated()) {
         <a routerLink="/board">Board</a>
         <a routerLink="/map">Map</a>
         <a routerLink="/audit">Audit</a>
@@ -15,6 +19,8 @@
         @if (auth.hasRole('FRONT_DESK')) {
           <a routerLink="/file-report">Loss report</a>
         }
+        <a routerLink="/guest">Guest</a>
+        <a routerLink="/how-it-works">How it works</a>
         <span class="who">{{ auth.username() }}</span>
         @for (role of auth.roles(); track role) {
           <span class="role">{{ role }}</span>

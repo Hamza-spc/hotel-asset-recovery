@@ -8,9 +8,15 @@ import { MapPage } from './floor-map/map-page';
 import { Home } from './home/home';
 import { ItemDetail } from './item-detail/item-detail';
 import { LogItem } from './log-item/log-item';
+import { GuestPortal } from './guest/guest-portal';
+import { GuestReceipt } from './guest/guest-receipt';
+import { HowItWorks } from './how-it-works/how-it-works';
 import { Matches } from './matches/matches';
 
 export const routes: Routes = [
+  { path: 'guest', component: GuestPortal },
+  { path: 'guest/:id', component: GuestReceipt },
+  { path: 'how-it-works', component: HowItWorks },
   { path: '', component: Home, canActivate: [authGuard] },
   { path: 'log-item', component: LogItem, canActivate: [authGuard, roleGuard(['HOUSEKEEPING'])] },
   {

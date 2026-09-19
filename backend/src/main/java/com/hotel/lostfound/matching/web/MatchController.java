@@ -26,6 +26,12 @@ class MatchController {
         return matching.pending().stream().map(MatchResponse::from).toList();
     }
 
+    @PostMapping("/reindex")
+    @PreAuthorize("hasRole('DUTY_MANAGER')")
+    List<MatchResponse> reindex() {
+        return matching.reindex().stream().map(MatchResponse::from).toList();
+    }
+
     @PostMapping("/{id}/accept")
     @PreAuthorize("hasRole('DUTY_MANAGER')")
     MatchResponse accept(@PathVariable UUID id) {

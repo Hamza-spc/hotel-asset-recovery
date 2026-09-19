@@ -1,0 +1,31 @@
+<a routerLink="/guest" class="back">Back to guest desk</a>
+
+@if (missing()) {
+  <h1>Report not found</h1>
+  <p class="lede">Check the receipt id, or file a new report at the guest desk.</p>
+}
+
+@if (report(); as current) {
+  <p class="eyebrow">Receipt</p>
+  <h1>{{ current.description }}</h1>
+  <p class="lede">{{ explain(current.status) }}</p>
+  <dl>
+    <div>
+      <dt>Receipt</dt>
+      <dd>{{ current.id }}</dd>
+    </div>
+    <div>
+      <dt>Guest</dt>
+      <dd>{{ current.guestName }} · room {{ current.roomNumber }}</dd>
+    </div>
+    <div>
+      <dt>Last seen</dt>
+      <dd>{{ current.zoneName }}</dd>
+    </div>
+    <div>
+      <dt>Status</dt>
+      <dd>{{ current.status }} · {{ current.filedAt | date: 'short' }}</dd>
+    </div>
+  </dl>
+  <p class="hint">Keep this receipt. Staff accept or reject matches — guests do not.</p>
+}

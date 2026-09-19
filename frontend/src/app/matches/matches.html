@@ -1,7 +1,11 @@
 <a routerLink="/" class="back">Back to desk</a>
 <h1>Match inbox</h1>
 <p class="lede">
-  Hybrid ranking: 70% Ollama text similarity, 30% PostGIS distance on the floor plan.
+  Hybrid ranking: 70% Ollama text similarity, 30% PostGIS distance on the floor plan. This list is a
+  read of already-scored pairs.
+</p>
+<p>
+  <button type="button" class="ghost" (click)="reindex()">Rebuild embeddings</button>
 </p>
 
 @if (error(); as message) {
@@ -9,7 +13,7 @@
 }
 
 @if (matches.error()) {
-  <p class="error">Start Ollama and open this page again so missing embeddings can be built.</p>
+  <p class="error">Could not load pending matches.</p>
 }
 
 @if (matches.hasValue()) {

@@ -42,4 +42,12 @@ export class Matches {
       error: (err) => this.error.set(err.error?.message ?? 'Could not reject the match.'),
     });
   }
+
+  reindex() {
+    this.error.set(null);
+    this.api.reindexMatches().subscribe({
+      next: () => this.matches.reload(),
+      error: (err) => this.error.set(err.error?.message ?? 'Could not rebuild embeddings. Is Ollama up?'),
+    });
+  }
 }

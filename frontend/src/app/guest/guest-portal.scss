@@ -1,0 +1,49 @@
+@use '../shared/forms' as *;
+
+.eyebrow {
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  color: #c4a574;
+  margin: 0;
+}
+
+form {
+  max-width: 44rem;
+}
+
+.map-field {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.hint,
+.staff-hint {
+  margin: 0;
+  color: #c8c2b6;
+  font-size: 0.9rem;
+}
+
+.lookup {
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #3a342c;
+  max-width: 28rem;
+}
+
+.lookup h2 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.lookup form {
+  max-width: none;
+}
+
+.staff-hint {
+  margin-top: 2rem;
+}
+
+.staff-hint a {
+  color: #c4a574;
+}
