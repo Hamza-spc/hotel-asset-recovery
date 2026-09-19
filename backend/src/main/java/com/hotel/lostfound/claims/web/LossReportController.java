@@ -1,5 +1,6 @@
 package com.hotel.lostfound.claims.web;
 
+import com.hotel.lostfound.claims.MapLocation;
 import com.hotel.lostfound.claims.application.ClaimsService;
 import jakarta.validation.constraints.NotBlank;
 import java.util.List;
@@ -42,9 +43,17 @@ class LossReportController {
             @RequestParam @NotBlank String contact,
             @RequestParam @NotBlank String description,
             @RequestParam @NotBlank String zoneName,
+            @RequestParam(required = false) Double mapX,
+            @RequestParam(required = false) Double mapY,
             @AuthenticationPrincipal Jwt jwt) {
-        return LossReportResponse.from(
-                claims.file(guestName, roomNumber, contact, description, zoneName, username(jwt)));
+        return LossReportResponse.from(claims.file(
+                guestName,
+                roomNumber,
+                contact,
+                description,
+                zoneName,
+                mapX == null || mapY == null ? null : new MapLocation(mapX, mapY),
+                username(jwt)));
     }
 
     @PostMapping("/{id}/close")

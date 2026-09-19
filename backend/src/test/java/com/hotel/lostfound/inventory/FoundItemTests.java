@@ -42,6 +42,7 @@ class FoundItemTests {
                 "Black leather wallet",
                 ItemCategory.WALLET,
                 "Lobby",
+                new MapPoint(20, 55),
                 null,
                 "housekeeper",
                 Instant.parse("2026-09-19T00:00:00Z"));

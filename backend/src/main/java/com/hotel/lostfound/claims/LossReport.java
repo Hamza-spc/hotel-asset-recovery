@@ -15,6 +15,8 @@ public class LossReport {
     private final String description;
     private String photoObjectKey;
     private final String zoneName;
+    private final Double mapX;
+    private final Double mapY;
     private LossReportStatus status;
     private final String filedBy;
     private final Instant filedAt;
@@ -29,6 +31,8 @@ public class LossReport {
             String description,
             String photoObjectKey,
             String zoneName,
+            Double mapX,
+            Double mapY,
             LossReportStatus status,
             String filedBy,
             Instant filedAt,
@@ -40,6 +44,8 @@ public class LossReport {
         this.description = description;
         this.photoObjectKey = photoObjectKey;
         this.zoneName = zoneName;
+        this.mapX = mapX;
+        this.mapY = mapY;
         this.status = status;
         this.filedBy = filedBy;
         this.filedAt = filedAt;
@@ -52,6 +58,7 @@ public class LossReport {
             String contact,
             String description,
             String zoneName,
+            MapLocation point,
             String photoObjectKey,
             String filedBy,
             Instant filedAt) {
@@ -63,6 +70,8 @@ public class LossReport {
                 require(description, "description"),
                 photoObjectKey,
                 require(zoneName, "zoneName"),
+                point == null ? null : point.x(),
+                point == null ? null : point.y(),
                 LossReportStatus.OPEN,
                 require(filedBy, "filedBy"),
                 filedAt,
@@ -79,6 +88,8 @@ public class LossReport {
             String description,
             String photoObjectKey,
             String zoneName,
+            Double mapX,
+            Double mapY,
             LossReportStatus status,
             String filedBy,
             Instant filedAt,
@@ -91,6 +102,8 @@ public class LossReport {
                 description,
                 photoObjectKey,
                 zoneName,
+                mapX,
+                mapY,
                 status,
                 filedBy,
                 filedAt,
@@ -147,6 +160,13 @@ public class LossReport {
 
     public String zoneName() {
         return zoneName;
+    }
+
+    public Optional<MapLocation> mapPoint() {
+        if (mapX == null || mapY == null) {
+            return Optional.empty();
+        }
+        return Optional.of(new MapLocation(mapX, mapY));
     }
 
     public LossReportStatus status() {

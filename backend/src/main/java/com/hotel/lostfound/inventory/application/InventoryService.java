@@ -3,6 +3,7 @@ package com.hotel.lostfound.inventory.application;
 import com.hotel.lostfound.inventory.FoundItem;
 import com.hotel.lostfound.inventory.FoundItemRepository;
 import com.hotel.lostfound.inventory.ItemCategory;
+import com.hotel.lostfound.inventory.MapPoint;
 import com.hotel.lostfound.inventory.ItemLifecycleException;
 import com.hotel.lostfound.inventory.ObjectStorage;
 import com.hotel.lostfound.inventory.TrackingCodeGenerator;
@@ -41,9 +42,14 @@ public class InventoryService {
 
     @Transactional
     public FoundItem logItem(
-            String description, ItemCategory category, String zoneName, String foundBy, MultipartFile photo) {
+            String description,
+            ItemCategory category,
+            String zoneName,
+            MapPoint point,
+            String foundBy,
+            MultipartFile photo) {
         FoundItem item = FoundItem.log(
-                trackingCodes.next(), description, category, zoneName, null, foundBy, Instant.now(clock));
+                trackingCodes.next(), description, category, zoneName, point, null, foundBy, Instant.now(clock));
         if (photo != null && !photo.isEmpty()) {
             item.attachPhoto(storePhoto("items/" + item.id(), photo));
         }

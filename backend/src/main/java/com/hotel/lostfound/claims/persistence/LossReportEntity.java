@@ -36,6 +36,12 @@ class LossReportEntity {
     @Column(name = "zone_name", nullable = false)
     private String zoneName;
 
+    @Column(name = "map_x")
+    private Double mapX;
+
+    @Column(name = "map_y")
+    private Double mapY;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private LossReportStatus status;
@@ -59,6 +65,8 @@ class LossReportEntity {
             String description,
             String photoObjectKey,
             String zoneName,
+            Double mapX,
+            Double mapY,
             LossReportStatus status,
             String filedBy,
             Instant filedAt,
@@ -70,6 +78,8 @@ class LossReportEntity {
         this.description = description;
         this.photoObjectKey = photoObjectKey;
         this.zoneName = zoneName;
+        this.mapX = mapX;
+        this.mapY = mapY;
         this.status = status;
         this.filedBy = filedBy;
         this.filedAt = filedAt;
@@ -102,6 +112,14 @@ class LossReportEntity {
 
     String getZoneName() {
         return zoneName;
+    }
+
+    Double getMapX() {
+        return mapX;
+    }
+
+    Double getMapY() {
+        return mapY;
     }
 
     LossReportStatus getStatus() {

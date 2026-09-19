@@ -14,6 +14,9 @@
     @if (photoUrl(); as url) {
       <img [src]="url" alt="Found item" />
     }
+    @if (pins().length) {
+      <app-floor-map [pins]="pins()" />
+    }
   </article>
 }
 

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 70" role="img" aria-label="Harbor Hotel ground floor">
+  <rect width="100" height="70" fill="#161412"/>
+  <rect x="0" y="30" width="70" height="40" fill="#2a261f" stroke="#5b5348" stroke-width="0.4"/>
+  <rect x="0" y="55" width="15" height="15" fill="#3a2f1f" stroke="#c4a574" stroke-width="0.45"/>
+  <rect x="0" y="0" width="40" height="30" fill="#322a20" stroke="#5b5348" stroke-width="0.4"/>
+  <rect x="40" y="0" width="30" height="30" fill="#2f261c" stroke="#5b5348" stroke-width="0.4"/>
+  <rect x="70" y="35" width="30" height="35" fill="#243028" stroke="#5b5348" stroke-width="0.4"/>
+  <rect x="70" y="0" width="30" height="35" fill="#1f2a32" stroke="#5b5348" stroke-width="0.4"/>
+  <text x="35" y="52" fill="#c8c2b6" font-size="3.2" font-family="Georgia, serif" text-anchor="middle">Guest wing</text>
+  <text x="7.5" y="64" fill="#c4a574" font-size="2.4" font-family="Georgia, serif" text-anchor="middle">Storage</text>
+  <text x="20" y="16" fill="#f3eadc" font-size="3.2" font-family="Georgia, serif" text-anchor="middle">Lobby</text>
+  <text x="55" y="16" fill="#f3eadc" font-size="3.2" font-family="Georgia, serif" text-anchor="middle">Restaurant</text>
+  <text x="85" y="54" fill="#f3eadc" font-size="3.2" font-family="Georgia, serif" text-anchor="middle">Gym</text>
+  <text x="85" y="18" fill="#f3eadc" font-size="3.2" font-family="Georgia, serif" text-anchor="middle">Pool</text>
+</svg>

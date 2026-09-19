@@ -19,10 +19,17 @@
       }
     </select>
   </label>
-  <label>
-    Hotel zone
-    <input name="zoneName" [(ngModel)]="zoneName" required />
-  </label>
+  <div class="map-field">
+    <span>Tap the floor plan</span>
+    <app-floor-map [selectable]="true" [pins]="pins()" (pinPicked)="onPin($event)" />
+    <p class="hint">
+      @if (zoneName) {
+        Pin in {{ zoneName }} at {{ mapX }}, {{ mapY }}
+      } @else {
+        Zone is resolved from the PostGIS polygons — Storage wins over Guest wing.
+      }
+    </p>
+  </div>
   <label>
     Photo
     <input type="file" accept="image/*" (change)="onFile($event)" />

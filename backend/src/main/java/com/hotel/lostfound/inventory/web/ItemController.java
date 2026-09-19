@@ -1,6 +1,7 @@
 package com.hotel.lostfound.inventory.web;
 
 import com.hotel.lostfound.inventory.ItemCategory;
+import com.hotel.lostfound.inventory.MapPoint;
 import com.hotel.lostfound.inventory.application.InventoryService;
 import java.util.List;
 import java.util.UUID;
@@ -53,9 +54,12 @@ class ItemController {
             @RequestParam String description,
             @RequestParam ItemCategory category,
             @RequestParam String zoneName,
+            @RequestParam(required = false) Double mapX,
+            @RequestParam(required = false) Double mapY,
             @RequestParam(required = false) MultipartFile photo,
             @AuthenticationPrincipal Jwt jwt) {
-        return FoundItemResponse.from(inventory.logItem(description, category, zoneName, username(jwt), photo));
+        MapPoint point = mapX == null || mapY == null ? null : new MapPoint(mapX, mapY);
+        return FoundItemResponse.from(inventory.logItem(description, category, zoneName, point, username(jwt), photo));
     }
 
     @PostMapping("/{id}/store")

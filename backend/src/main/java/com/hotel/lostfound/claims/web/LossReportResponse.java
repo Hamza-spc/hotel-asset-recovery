@@ -12,6 +12,8 @@ record LossReportResponse(
         String contact,
         String description,
         String zoneName,
+        Double mapX,
+        Double mapY,
         LossReportStatus status,
         String filedBy,
         Instant filedAt) {
@@ -24,6 +26,8 @@ record LossReportResponse(
                 report.contact(),
                 report.description(),
                 report.zoneName(),
+                report.mapPoint().map(com.hotel.lostfound.claims.MapLocation::x).orElse(null),
+                report.mapPoint().map(com.hotel.lostfound.claims.MapLocation::y).orElse(null),
                 report.status(),
                 report.filedBy(),
                 report.filedAt());

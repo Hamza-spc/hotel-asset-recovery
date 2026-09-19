@@ -4,6 +4,7 @@
     <nav>
       @if (auth.isAuthenticated()) {
         <a routerLink="/board">Board</a>
+        <a routerLink="/map">Map</a>
         @if (auth.hasRole('HOUSEKEEPING')) {
           <a routerLink="/log-item">Log item</a>
         }

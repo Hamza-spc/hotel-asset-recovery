@@ -4,10 +4,11 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Auth } from '../auth/auth';
 import { FoundItem, OperationsApi } from '../core/operations-api';
+import { FloorMap, FloorPin } from '../floor-map/floor-map';
 
 @Component({
   selector: 'app-item-detail',
-  imports: [RouterLink, DatePipe, FormsModule],
+  imports: [RouterLink, DatePipe, FormsModule, FloorMap],
   templateUrl: './item-detail.html',
   styleUrl: './item-detail.scss',
 })
@@ -21,6 +22,7 @@ export class ItemDetail {
   protected storageLocation = 'Shelf A1';
   protected readonly error = signal<string | null>(null);
   protected readonly photoUrl = signal<string | null>(null);
+  protected readonly pins = signal<FloorPin[]>([]);
 
   constructor() {
     this.refresh();
@@ -97,6 +99,11 @@ export class ItemDetail {
   private apply(item: FoundItem) {
     this.error.set(null);
     this.item.set(item);
+    this.pins.set(
+      item.mapX != null && item.mapY != null
+        ? [{ x: item.mapX, y: item.mapY, label: item.zoneName, kind: 'item' }]
+        : [],
+    );
     if (!item.hasPhoto) {
       this.photoUrl.set(null);
       return;

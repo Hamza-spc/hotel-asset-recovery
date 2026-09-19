@@ -1,0 +1,43 @@
+:host {
+  display: block;
+}
+
+.map-shell {
+  height: 22rem;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid #3a342c;
+  background: #161412;
+}
+
+:host.tall .map-shell {
+  height: min(36rem, 70vh);
+}
+
+.map {
+  height: 100%;
+  background: #161412;
+}
+
+:host ::ng-deep .leaflet-container {
+  background: #161412;
+  font-family: inherit;
+}
+
+:host ::ng-deep .leaflet-image-layer {
+  pointer-events: none;
+}
+
+:host ::ng-deep .leaflet-control-zoom a {
+  background: #1b1916;
+  color: #f3eadc;
+  border-color: #3a342c;
+}
+
+:host ::ng-deep .zone-tip {
+  background: #1b1916;
+  color: #f3eadc;
+  border: 1px solid #3a342c;
+  border-radius: 8px;
+  box-shadow: none;
+}

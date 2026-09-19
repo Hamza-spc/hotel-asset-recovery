@@ -3,6 +3,7 @@ package com.hotel.lostfound.claims.application;
 import com.hotel.lostfound.claims.ClaimException;
 import com.hotel.lostfound.claims.LossReport;
 import com.hotel.lostfound.claims.LossReportRepository;
+import com.hotel.lostfound.claims.MapLocation;
 import java.time.Clock;
 import java.time.Instant;
 import java.util.List;
@@ -26,9 +27,15 @@ public class ClaimsService {
 
     @Transactional
     public LossReport file(
-            String guestName, String roomNumber, String contact, String description, String zoneName, String filedBy) {
-        LossReport report =
-                LossReport.file(guestName, roomNumber, contact, description, zoneName, null, filedBy, Instant.now(clock));
+            String guestName,
+            String roomNumber,
+            String contact,
+            String description,
+            String zoneName,
+            MapLocation point,
+            String filedBy) {
+        LossReport report = LossReport.file(
+                guestName, roomNumber, contact, description, zoneName, point, null, filedBy, Instant.now(clock));
         return publishAndSave(report);
     }
 

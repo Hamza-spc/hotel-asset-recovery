@@ -39,6 +39,12 @@ class FoundItemEntity {
     @Column(name = "zone_name", nullable = false)
     private String zoneName;
 
+    @Column(name = "map_x")
+    private Double mapX;
+
+    @Column(name = "map_y")
+    private Double mapY;
+
     @Column(name = "storage_location")
     private String storageLocation;
 
@@ -61,6 +67,8 @@ class FoundItemEntity {
             ItemStatus status,
             String photoObjectKey,
             String zoneName,
+            Double mapX,
+            Double mapY,
             String storageLocation,
             String foundBy,
             Instant foundAt,
@@ -72,6 +80,8 @@ class FoundItemEntity {
         this.status = status;
         this.photoObjectKey = photoObjectKey;
         this.zoneName = zoneName;
+        this.mapX = mapX;
+        this.mapY = mapY;
         this.storageLocation = storageLocation;
         this.foundBy = foundBy;
         this.foundAt = foundAt;
@@ -104,6 +114,14 @@ class FoundItemEntity {
 
     String getZoneName() {
         return zoneName;
+    }
+
+    Double getMapX() {
+        return mapX;
+    }
+
+    Double getMapY() {
+        return mapY;
     }
 
     String getStorageLocation() {

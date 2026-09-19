@@ -15,6 +15,8 @@ public class FoundItem {
     private ItemStatus status;
     private String photoObjectKey;
     private String zoneName;
+    private final Double mapX;
+    private final Double mapY;
     private String storageLocation;
     private final String foundBy;
     private final Instant foundAt;
@@ -29,6 +31,8 @@ public class FoundItem {
             ItemStatus status,
             String photoObjectKey,
             String zoneName,
+            Double mapX,
+            Double mapY,
             String storageLocation,
             String foundBy,
             Instant foundAt,
@@ -40,6 +44,8 @@ public class FoundItem {
         this.status = status;
         this.photoObjectKey = photoObjectKey;
         this.zoneName = zoneName;
+        this.mapX = mapX;
+        this.mapY = mapY;
         this.storageLocation = storageLocation;
         this.foundBy = foundBy;
         this.foundAt = foundAt;
@@ -51,6 +57,7 @@ public class FoundItem {
             String description,
             ItemCategory category,
             String zoneName,
+            MapPoint point,
             String photoObjectKey,
             String foundBy,
             Instant foundAt) {
@@ -62,6 +69,8 @@ public class FoundItem {
                 ItemStatus.LOGGED,
                 photoObjectKey,
                 requireText(zoneName, "zone"),
+                point == null ? null : point.x(),
+                point == null ? null : point.y(),
                 null,
                 requireText(foundBy, "foundBy"),
                 foundAt,
@@ -78,6 +87,8 @@ public class FoundItem {
             ItemStatus status,
             String photoObjectKey,
             String zoneName,
+            Double mapX,
+            Double mapY,
             String storageLocation,
             String foundBy,
             Instant foundAt,
@@ -90,6 +101,8 @@ public class FoundItem {
                 status,
                 photoObjectKey,
                 zoneName,
+                mapX,
+                mapY,
                 storageLocation,
                 foundBy,
                 foundAt,
@@ -163,6 +176,13 @@ public class FoundItem {
 
     public String zoneName() {
         return zoneName;
+    }
+
+    public Optional<MapPoint> mapPoint() {
+        if (mapX == null || mapY == null) {
+            return Optional.empty();
+        }
+        return Optional.of(new MapPoint(mapX, mapY));
     }
 
     public Optional<String> storageLocation() {

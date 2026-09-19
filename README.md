@@ -8,14 +8,15 @@ This is a **modular monolith**: one Spring Boot application with enforced module
 
 ## Status
 
-Phase 2 — staff can log found items (with photos), file guest loss reports, and move items through the domain lifecycle. Maps and matching come next.
+Phase 3 — staff tap a PostGIS-backed 2D floor plan to pin finds and loss reports. Matching comes next.
 
 ## Stack
 
 - Java 21, Spring Boot 4.1, Spring Modulith 2.1
 - Angular 21 staff app
 - Keycloak (OAuth2/OIDC) with roles `HOUSEKEEPING`, `FRONT_DESK`, `DUTY_MANAGER`
-- Docker Compose: PostgreSQL 16, Kafka, Redis, MinIO, Prometheus, Grafana, Nginx. PostGIS is added in Phase 3.
+- Docker Compose: PostgreSQL 16 + PostGIS, Kafka, Redis, MinIO, Prometheus, Grafana, Nginx
+- Angular 21 staff app with Leaflet `CRS.Simple` ground-floor map
 
 ## Local run
 

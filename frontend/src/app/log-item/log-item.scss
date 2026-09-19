@@ -1,1 +1,16 @@
 @use '../shared/forms' as *;
+
+form {
+  max-width: 44rem;
+}
+
+.map-field {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.hint {
+  margin: 0;
+  color: #c8c2b6;
+  font-size: 0.9rem;
+}

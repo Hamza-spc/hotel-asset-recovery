@@ -30,6 +30,8 @@ export interface FoundItem {
   category: ItemCategory;
   status: ItemStatus;
   zoneName: string;
+  mapX: number | null;
+  mapY: number | null;
   storageLocation: string | null;
   hasPhoto: boolean;
   foundBy: string;
@@ -43,9 +45,25 @@ export interface LossReport {
   contact: string;
   description: string;
   zoneName: string;
+  mapX: number | null;
+  mapY: number | null;
   status: LossReportStatus;
   filedBy: string;
   filedAt: string;
+}
+
+export interface ZoneResolved {
+  name: string;
+  floorCode: string;
+}
+
+export interface HotelZoneCollection {
+  type: 'FeatureCollection';
+  features: Array<{
+    type: 'Feature';
+    properties: { id: string; name: string; floorCode: string };
+    geometry: { type: string; coordinates: unknown };
+  }>;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -100,5 +118,13 @@ export class OperationsApi {
 
   closeReport(id: string) {
     return this.http.post<LossReport>(`${this.base}/api/loss-reports/${id}/close`, null);
+  }
+
+  zones() {
+    return this.http.get<HotelZoneCollection>(`${this.base}/api/map/zones`);
+  }
+
+  resolveZone(x: number, y: number) {
+    return this.http.get<ZoneResolved>(`${this.base}/api/map/resolve`, { params: { x, y } });
   }
 }
