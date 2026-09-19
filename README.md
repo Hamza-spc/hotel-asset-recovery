@@ -8,7 +8,7 @@ This is a **modular monolith**: one Spring Boot application with enforced module
 
 ## Status
 
-Phase 4 — domain events go through the Modulith outbox to Kafka, an append-only audit log, and a live STOMP board. Matching comes next.
+Phase 5 — Ollama embeddings plus PostGIS distance rank item/loss-report pairs. Duty managers accept or reject them in the match inbox.
 
 ## Stack
 
@@ -18,6 +18,7 @@ Phase 4 — domain events go through the Modulith outbox to Kafka, an append-onl
 - Docker Compose: PostgreSQL 16 + PostGIS, Kafka, Redis, MinIO, Prometheus, Grafana, Tempo, Nginx
 - Angular 21 staff app with Leaflet `CRS.Simple` ground-floor map and STOMP live updates
 - OpenTelemetry traces exported to Tempo (Grafana Explore → Tempo)
+- Ollama (`nomic-embed-text`) + pgvector hybrid matching
 
 ## Local run
 
@@ -32,7 +33,7 @@ cd backend && ./mvnw spring-boot:run
 cd frontend && npm start
 ```
 
-Open [http://localhost:4200](http://localhost:4200). Keycloak is on port 8081, Grafana on 3000 (`admin` / `admin`), MinIO console on 9001, Tempo OTLP on 4318. Compose Postgres is on **5433** so it does not collide with a local Homebrew Postgres on 5432. The operations board stays live over STOMP (`/ws`). Kafka topics are `lostfound.inventory` and `lostfound.claims`.
+Open [http://localhost:4200](http://localhost:4200). Keycloak is on port 8081, Grafana on 3000 (`admin` / `admin`), MinIO console on 9001, Tempo OTLP on 4318. Compose Postgres is on **5433** so it does not collide with a local Homebrew Postgres on 5432. The operations board stays live over STOMP (`/ws`). Kafka topics are `lostfound.inventory`, `lostfound.claims`, and `lostfound.matching`. Ollama is on port 11434 (`nomic-embed-text` is pulled on first match). Duty managers review suggestions at `/matches`.
 
 ### Demo users (local only)
 

@@ -4,6 +4,8 @@ import com.hotel.lostfound.claims.ClaimException;
 import com.hotel.lostfound.claims.LossReport;
 import com.hotel.lostfound.claims.LossReportRepository;
 import com.hotel.lostfound.claims.MapLocation;
+import com.hotel.lostfound.claims.ReportMatchingPort;
+import com.hotel.lostfound.claims.ReportSnapshot;
 import java.time.Clock;
 import java.time.Instant;
 import java.util.List;
@@ -13,7 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class ClaimsService {
+public class ClaimsService implements ReportMatchingPort {
 
     private final LossReportRepository reports;
     private final ApplicationEventPublisher events;
@@ -44,6 +46,46 @@ public class ClaimsService {
         LossReport report = require(id);
         report.close();
         return publishAndSave(report);
+    }
+
+    @Override
+    @Transactional
+    public void markMatched(UUID reportId) {
+        LossReport report = require(reportId);
+        if (report.status() != com.hotel.lostfound.claims.LossReportStatus.MATCHED) {
+            report.markMatched();
+            publishAndSave(report);
+        }
+    }
+
+    @Override
+    @Transactional
+    public void resolveFromMatch(UUID reportId) {
+        LossReport report = require(reportId);
+        report.resolve();
+        publishAndSave(report);
+    }
+
+    @Override
+    @Transactional
+    public void reopen(UUID reportId) {
+        LossReport report = require(reportId);
+        report.reopen();
+        publishAndSave(report);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<ReportSnapshot> snapshots() {
+        return reports.findAll().stream()
+                .map(report -> new ReportSnapshot(
+                        report.id(),
+                        report.guestName(),
+                        report.description(),
+                        report.mapPoint().map(MapLocation::x).orElse(null),
+                        report.mapPoint().map(MapLocation::y).orElse(null),
+                        report.status()))
+                .toList();
     }
 
     @Transactional(readOnly = true)

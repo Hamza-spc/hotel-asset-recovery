@@ -76,7 +76,8 @@ public class LossReport {
                 require(filedBy, "filedBy"),
                 filedAt,
                 0);
-        report.events.add(new LossReportFiled(report.id, report.guestName, filedAt));
+        report.events.add(new LossReportFiled(
+                report.id, report.guestName, report.description, report.zoneName, report.mapX, report.mapY, filedAt));
         return report;
     }
 
@@ -120,6 +121,20 @@ public class LossReport {
         }
         this.status = LossReportStatus.CLOSED;
         events.add(new LossReportClosed(id, Instant.now()));
+    }
+
+    public void markMatched() {
+        if (status != LossReportStatus.OPEN) {
+            throw new ClaimException("Only open reports can be matched");
+        }
+        this.status = LossReportStatus.MATCHED;
+    }
+
+    public void reopen() {
+        if (status != LossReportStatus.MATCHED) {
+            throw new ClaimException("Only matched reports can be reopened");
+        }
+        this.status = LossReportStatus.OPEN;
     }
 
     public void resolve() {

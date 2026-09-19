@@ -8,6 +8,7 @@ import { MapPage } from './floor-map/map-page';
 import { Home } from './home/home';
 import { ItemDetail } from './item-detail/item-detail';
 import { LogItem } from './log-item/log-item';
+import { Matches } from './matches/matches';
 
 export const routes: Routes = [
   { path: '', component: Home, canActivate: [authGuard] },
@@ -19,6 +20,7 @@ export const routes: Routes = [
   },
   { path: 'board', component: Board, canActivate: [authGuard] },
   { path: 'audit', component: Audit, canActivate: [authGuard] },
+  { path: 'matches', component: Matches, canActivate: [authGuard, roleGuard(['DUTY_MANAGER'])] },
   { path: 'map', component: MapPage, canActivate: [authGuard] },
   { path: 'items/:id', component: ItemDetail, canActivate: [authGuard] },
   { path: '**', redirectTo: '' },

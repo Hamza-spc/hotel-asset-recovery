@@ -5,4 +5,11 @@ import java.util.UUID;
 import org.springframework.modulith.events.Externalized;
 
 @Externalized("lostfound.inventory::#{#this.itemId()}")
-public record ItemLogged(UUID itemId, String trackingCode, Instant occurredAt) {}
+public record ItemLogged(
+        UUID itemId,
+        String trackingCode,
+        String description,
+        String zoneName,
+        Double mapX,
+        Double mapY,
+        Instant occurredAt) {}

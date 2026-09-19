@@ -6,6 +6,9 @@
         <a routerLink="/board">Board</a>
         <a routerLink="/map">Map</a>
         <a routerLink="/audit">Audit</a>
+        @if (auth.hasRole('DUTY_MANAGER')) {
+          <a routerLink="/matches">Matches</a>
+        }
         @if (auth.hasRole('HOUSEKEEPING')) {
           <a routerLink="/log-item">Log item</a>
         }

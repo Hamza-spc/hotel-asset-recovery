@@ -66,6 +66,21 @@ export interface AuditEntry {
   occurredAt: string;
 }
 
+export type MatchStatus = 'PENDING' | 'ACCEPTED' | 'REJECTED';
+
+export interface MatchSuggestion {
+  id: string;
+  itemId: string;
+  reportId: string;
+  itemLabel: string;
+  reportLabel: string;
+  textScore: number;
+  spatialScore: number;
+  combinedScore: number;
+  status: MatchStatus;
+  createdAt: string;
+}
+
 export interface OperationsNotice {
   type: string;
   aggregateType: string;
@@ -147,5 +162,17 @@ export class OperationsApi {
 
   recentAudit() {
     return this.http.get<AuditEntry[]>(`${this.base}/api/audit`);
+  }
+
+  listMatches() {
+    return this.http.get<MatchSuggestion[]>(`${this.base}/api/matches`);
+  }
+
+  acceptMatch(id: string) {
+    return this.http.post<MatchSuggestion>(`${this.base}/api/matches/${id}/accept`, null);
+  }
+
+  rejectMatch(id: string) {
+    return this.http.post<MatchSuggestion>(`${this.base}/api/matches/${id}/reject`, null);
   }
 }

@@ -18,7 +18,7 @@ public enum ItemStatus {
 
     private Set<ItemStatus> allowedTargets() {
         return switch (this) {
-            case LOGGED -> EnumSet.of(STORED);
+            case LOGGED -> EnumSet.of(STORED, MATCH_SUGGESTED);
             case STORED -> EnumSet.of(MATCH_SUGGESTED, CLAIM_PENDING, UNCLAIMED);
             case MATCH_SUGGESTED -> EnumSet.of(CLAIM_PENDING, STORED);
             case CLAIM_PENDING -> EnumSet.of(RECLAIMED, STORED);

@@ -8,6 +8,9 @@ import com.hotel.lostfound.inventory.ItemLogged;
 import com.hotel.lostfound.inventory.ItemReclaimed;
 import com.hotel.lostfound.inventory.ItemStored;
 import com.hotel.lostfound.inventory.ItemUnclaimed;
+import com.hotel.lostfound.matching.MatchAccepted;
+import com.hotel.lostfound.matching.MatchRejected;
+import com.hotel.lostfound.matching.MatchSuggested;
 import com.hotel.lostfound.notification.OperationsNotice;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.modulith.events.ApplicationModuleListener;
@@ -73,6 +76,22 @@ public class OperationsNotifier {
     void onClosed(LossReportClosed event) {
         send(new OperationsNotice(
                 "LOSS_REPORT_CLOSED", "LOSS_REPORT", event.reportId(), "Loss report closed", event.occurredAt()));
+    }
+
+    @ApplicationModuleListener
+    void onMatchSuggested(MatchSuggested event) {
+        send(new OperationsNotice(
+                "MATCH_SUGGESTED", "MATCH", event.suggestionId(), "Match score " + event.score(), event.occurredAt()));
+    }
+
+    @ApplicationModuleListener
+    void onMatchAccepted(MatchAccepted event) {
+        send(new OperationsNotice("MATCH_ACCEPTED", "MATCH", event.suggestionId(), "Match accepted", event.occurredAt()));
+    }
+
+    @ApplicationModuleListener
+    void onMatchRejected(MatchRejected event) {
+        send(new OperationsNotice("MATCH_REJECTED", "MATCH", event.suggestionId(), "Match rejected", event.occurredAt()));
     }
 
     private void send(OperationsNotice notice) {

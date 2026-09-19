@@ -3,6 +3,8 @@ package com.hotel.lostfound.inventory.application;
 import com.hotel.lostfound.inventory.FoundItem;
 import com.hotel.lostfound.inventory.FoundItemRepository;
 import com.hotel.lostfound.inventory.ItemCategory;
+import com.hotel.lostfound.inventory.ItemMatchingPort;
+import com.hotel.lostfound.inventory.ItemSnapshot;
 import com.hotel.lostfound.inventory.MapPoint;
 import com.hotel.lostfound.inventory.ItemLifecycleException;
 import com.hotel.lostfound.inventory.ObjectStorage;
@@ -19,7 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
-public class InventoryService {
+public class InventoryService implements ItemMatchingPort {
 
     private final FoundItemRepository items;
     private final TrackingCodeGenerator trackingCodes;
@@ -89,6 +91,44 @@ public class InventoryService {
         FoundItem item = requireItem(id);
         item.dispose();
         return publishAndSave(item);
+    }
+
+    @Override
+    @Transactional
+    public void markMatchSuggested(UUID itemId) {
+        FoundItem item = requireItem(itemId);
+        if (item.status() != com.hotel.lostfound.inventory.ItemStatus.MATCH_SUGGESTED) {
+            item.suggestMatch();
+            publishAndSave(item);
+        }
+    }
+
+    @Override
+    @Transactional
+    public void openClaimFromMatch(UUID itemId) {
+        openClaim(itemId);
+    }
+
+    @Override
+    @Transactional
+    public void revertMatch(UUID itemId) {
+        FoundItem item = requireItem(itemId);
+        item.revertMatch();
+        publishAndSave(item);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<ItemSnapshot> snapshots() {
+        return items.findAll().stream()
+                .map(item -> new ItemSnapshot(
+                        item.id(),
+                        item.trackingCode(),
+                        item.description(),
+                        item.mapPoint().map(MapPoint::x).orElse(null),
+                        item.mapPoint().map(MapPoint::y).orElse(null),
+                        item.status()))
+                .toList();
     }
 
     @Transactional(readOnly = true)

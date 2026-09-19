@@ -10,6 +10,9 @@ import com.hotel.lostfound.inventory.ItemLogged;
 import com.hotel.lostfound.inventory.ItemReclaimed;
 import com.hotel.lostfound.inventory.ItemStored;
 import com.hotel.lostfound.inventory.ItemUnclaimed;
+import com.hotel.lostfound.matching.MatchAccepted;
+import com.hotel.lostfound.matching.MatchRejected;
+import com.hotel.lostfound.matching.MatchSuggested;
 import java.time.Clock;
 import java.time.Instant;
 import java.util.List;
@@ -72,6 +75,21 @@ public class AuditService {
     @ApplicationModuleListener
     void onClosed(LossReportClosed event) {
         append("LOSS_REPORT_CLOSED", "LOSS_REPORT", event.reportId(), "Closed", event.occurredAt());
+    }
+
+    @ApplicationModuleListener
+    void onMatchSuggested(MatchSuggested event) {
+        append("MATCH_SUGGESTED", "MATCH", event.suggestionId(), "Score " + event.score(), event.occurredAt());
+    }
+
+    @ApplicationModuleListener
+    void onMatchAccepted(MatchAccepted event) {
+        append("MATCH_ACCEPTED", "MATCH", event.suggestionId(), "Accepted", event.occurredAt());
+    }
+
+    @ApplicationModuleListener
+    void onMatchRejected(MatchRejected event) {
+        append("MATCH_REJECTED", "MATCH", event.suggestionId(), "Rejected", event.occurredAt());
     }
 
     private void append(String eventType, String aggregateType, UUID aggregateId, String summary, Instant occurredAt) {

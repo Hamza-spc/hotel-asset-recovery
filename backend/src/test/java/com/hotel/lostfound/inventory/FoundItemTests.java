@@ -39,6 +39,16 @@ class FoundItemTests {
     }
 
     @Test
+    void suggestedMatchCanRevertToStored() {
+        FoundItem item = sample();
+        item.moveToStorage("Shelf B4");
+        item.suggestMatch();
+        assertEquals(ItemStatus.MATCH_SUGGESTED, item.status());
+        item.revertMatch();
+        assertEquals(ItemStatus.STORED, item.status());
+    }
+
+    @Test
     void disposeRequiresUnclaimed() {
         FoundItem item = sample();
         item.moveToStorage("Cage 2");

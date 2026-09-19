@@ -75,7 +75,8 @@ public class FoundItem {
                 requireText(foundBy, "foundBy"),
                 foundAt,
                 0);
-        item.events.add(new ItemLogged(item.id, item.trackingCode, foundAt));
+        item.events.add(new ItemLogged(
+                item.id, item.trackingCode, item.description, item.zoneName, item.mapX, item.mapY, foundAt));
         return item;
     }
 
@@ -128,6 +129,17 @@ public class FoundItem {
     public void markUnclaimed() {
         transitionTo(ItemStatus.UNCLAIMED);
         events.add(new ItemUnclaimed(id, Instant.now()));
+    }
+
+    public void suggestMatch() {
+        transitionTo(ItemStatus.MATCH_SUGGESTED);
+    }
+
+    public void revertMatch() {
+        if (status != ItemStatus.MATCH_SUGGESTED) {
+            throw new ItemLifecycleException("Only suggested matches can be reverted");
+        }
+        this.status = storageLocation == null ? ItemStatus.LOGGED : ItemStatus.STORED;
     }
 
     public void dispose() {

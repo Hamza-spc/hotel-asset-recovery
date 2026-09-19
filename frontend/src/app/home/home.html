@@ -48,4 +48,12 @@
       <p>Append-only trail of domain events. The same events go to Kafka through the Modulith outbox.</p>
     </article>
   </a>
+  @if (auth.hasRole('DUTY_MANAGER')) {
+    <a routerLink="/matches">
+      <article>
+        <h2>Match inbox</h2>
+        <p>Accept or reject hybrid suggestions from Ollama embeddings and floor-plan distance.</p>
+      </article>
+    </a>
+  }
 </div>

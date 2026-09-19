@@ -81,4 +81,11 @@ app:
     secret-key: lostfoundsecret
     bucket: lostfound-photos
     region: us-east-1
+  matching:
+    ollama-url: http://localhost:11434
+    model: nomic-embed-text
+    text-weight: 0.7
+    spatial-weight: 0.3
+    min-score: 0.52
+    spatial-scale: 40
 
